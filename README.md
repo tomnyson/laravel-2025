@@ -4,3 +4,10 @@ php artisan make:model Product -m
 php artisan migrate
 ## tạo controller
 php artisan make:controller ProductController# laravel-2025
+## clear static cache
+```php
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
