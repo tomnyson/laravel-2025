@@ -7,16 +7,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
     public function index()
     {
         $products = DB::table('products')->select('id', 'title', 'price','description', 'stock', 'image')->paginate(5);
+  
         return view('products.index', compact('products'));
     }
     public function create() {
-        return view('products.add');
+        $categories = Category::all();
+        return view('products.add', compact('categories'));
     }
     public function store(Request $request) {
         $dataValidator = $request->validate(
@@ -27,6 +30,8 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
             'status' => 'required|numeric|min:0',
+            'category_id' => 'required|numeric|min:0|exists:categories,id',
+            'images'=> 'nullable|array|exists:productImages, id'
           ]
         );
         $random = Str::random(5); 

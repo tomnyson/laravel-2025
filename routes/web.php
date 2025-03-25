@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,3 +46,11 @@ Route::post('/product/create', [ProductController::class, 'store']);
 Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
 Route::post('/product/edit/{id}', [ProductController::class, 'update'])->name('products.update');
+
+//categry
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/create', [CategoryController::class, 'create'])->name('category.show_create');
+Route::post('/category/create', [CategoryController::class, 'store'])->name('category.create');
+Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::post('/category/edit/{id}', [CategoryController::class, 'update'])->name('category.update');
