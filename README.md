@@ -13,3 +13,4 @@ php artisan view:clear
 ```
 # Chế Quan Vũ: 10 lần code syntax cở bản trên giấy bằng viết tay.
 # Lê Văn vũ: 10 lần code syntax cở bản trên giấy bằng viết tay.
+# Long vũ: 10 lần code syntax cở bản trên giấy bằng viết tay.

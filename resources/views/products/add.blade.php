@@ -3,7 +3,7 @@
 <div>
     <h1>Add new products</h1>
     <!-- /resources/views/post/create.blade.php -->
-    <!-- @if ($errors->any())
+    @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -11,7 +11,7 @@
             @endforeach
         </ul>
     </div>
-    @endif -->
+    @endif
 
     <!-- Create Post Form -->
     <form action="" method="post" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
         <p class="alert-danger">{{ $message }}</p>
         @enderror
         <label for="">Sub Images</label>
-        <input type="file" name="images" multiple accept="image/*" placeholder="images" class="form-control" />
+        <input type="file" name="images[]" multiple accept="image/*" placeholder="images" class="form-control" />
         @error('images')
         <p class="alert-danger">{{ $message }}</p>
         @enderror

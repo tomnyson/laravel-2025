@@ -12,6 +12,7 @@
           <th>price</th>
           <th>images</th>
           <th>stock</th>
+          <th>category name</th>
           <th>action</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
           <td>{{ $product->price }}</td>
           <td><img src="/images/{{ $product->image }}" width="100x" /></td>
           <td>{{ $product->stock }}</td>
+          <td>{{ $product->category_name }}</td>
           <td style="display: flex; justify-content: center;">
           <a href="{{ route('products.edit', $product->id)  }}" data-id="{{ $product->id }}" class="btn btn-info mr2">edit</a>
             <a href="{{ route('products.delete', $product->id)  }}" data-id="{{ $product->id }}" class="btn btn-danger btn-delete ">delete</a>
