@@ -19,4 +19,6 @@ php artisan view:clear
 composer require laravel/breeze --dev
 php artisan breeze:install
 npm install && npm run dev
-php artisan migrat
+php artisan migrate
+# tao middlware
+ php artisan make:middleware CheckRole  
