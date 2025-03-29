@@ -53,6 +53,13 @@ class ProductController extends Controller
 
     return view('products.index', compact('products'));
   }
+
+  public function shop()
+  {
+    $products = Product::paginate(10);
+    return view('guest.shop', compact('products'));
+  }
+
   public function create()
   {
     $categories = Category::all();
