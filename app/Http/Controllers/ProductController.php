@@ -78,35 +78,36 @@ class ProductController extends Controller
       'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
 
-    // Tạo slug ngẫu nhiên
-    $random = Str::random(5);
-    $data['slug'] = Str::slug($request->title . '-' . $random);
+    // Unique slug
+    do {
+      $slug = Str::slug($request->title . '-' . Str::random(5));
+    } while (Product::where('slug', $slug)->exists());
+    $data['slug'] = $slug;
 
-    // Lưu ảnh chính
+    // Store main image
     if ($request->hasFile('image')) {
-      $imageName = uniqid() . '.' . $request->image->extension();
-      $request->image->storeAs('public/images', $imageName);
-      $data['image'] = $imageName;
+      $path = $request->file('image')->store('images', 'public');
+      $data['image'] = basename($path);
     }
-    // Tạo product
-    $product = Product::create($data);
-    // Lưu các ảnh phụ
-    if ($request->hasFile('images')) {
-      foreach ($request->file('images') as $image) {
-        $subImageName = uniqid() . '.' . $image->extension();
-        $image->storeAs('public/images', $subImageName);
 
-        Images::create([
-          'product_id' => $product->id,
-          'imagePath' => $subImageName
-        ]);
+    // Transaction for safety
+    DB::transaction(function () use (&$product, $data, $request) {
+      $product = Product::create($data);
+
+      if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+          $path = $image->store('images', 'public');
+          Images::create([
+            'product_id' => $product->id,
+            'imagePath' => basename($path)
+          ]);
+        }
       }
-    }
+    });
 
     Session::flash('message', 'Thêm sản phẩm thành công!');
     return redirect()->route('products.index');
   }
-
   public function edit($id)
   {
     $product = DB::table('products')->where('id', $id)->first();
