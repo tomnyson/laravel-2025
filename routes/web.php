@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AddressController;
 
 
 // Route::get('/',[HomeController::class, 'index'])->name('home');
@@ -18,6 +19,7 @@ Route::get('/shop', [ProductController::class, 'shop'])->name('products.shop');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 Route::get('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,5 +44,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     });
 });
 // router for get
+// router for ajax
+Route::get('/address/province', [AddressController::class, 'getProvice'])->name('address.province');
+Route::get('/address/district/{id}', [AddressController::class, 'getDistrict'])->name('address.district');
+Route::get('/address/ward/{id}', [AddressController::class, 'getWard'])->name('address.ward');
 
 require __DIR__ . '/auth.php';

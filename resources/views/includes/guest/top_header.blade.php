@@ -55,22 +55,17 @@
             <a href="#" class="close-side"><i class="fa fa-times"></i></a>
             <li class="cart-box">
                 @php
-
                     $carts = Cart::content();
                 @endphp
-                @foreach($carts as $cart)
-                    <ul class="cart-list">
-                        <td class="name-pr">
-                            <a href="#">
-                                {{$cart->name}}
-                            </a>
-                        </td>
-                        <td class="price-pr">
-                            <p>$ {{$cart->price}}</p>
-                        </td>
-                    </ul>
-                @endforeach
-
+                <ul class="cart-list">
+                    @foreach($carts as $cart)
+                        <li>
+                            <a href="#" class="photo"><img src="https://placehold.co/200" class="cart-thumb" alt="" /></a>
+                            <h6><a href="#"> {{$cart->name}} </a></h6>
+                            <p>1x - <span class="price"> {{$cart->price}}</span></p>
+                        </li>
+                    @endforeach
+                </ul>
             </li>
         </div>
         <!-- End Side Menu -->

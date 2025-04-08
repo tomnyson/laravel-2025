@@ -34,4 +34,10 @@ class CartController extends Controller
             return  redirect()->route('cart.index')->with('success', 'remove success cart');
         }
     }
+
+    public function checkout()
+    {
+        $carts =  Cart::content();
+        return view('guest.checkout', compact('carts'));
+    }
 }

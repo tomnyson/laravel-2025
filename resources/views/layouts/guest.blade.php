@@ -7,6 +7,7 @@
     @include('includes.guest.top_header')
     @yield('content')
     @include('includes.guest.footer')
+    @yield('scripts')
 
 </body>
 
