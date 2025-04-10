@@ -8,9 +8,9 @@ use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CheckoutController;
 
-
-// Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/', [ProductController::class, 'shop'])->name('products.shop');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,6 +20,8 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 Route::get('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+// store checkout
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('cart.store');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

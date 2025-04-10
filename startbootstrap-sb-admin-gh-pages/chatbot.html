@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Toggle Chatbot</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            #chatbotBox {
+                display: none;
+                bottom: 0;
+                right: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Floating Button -->
+        <button
+            id="chatbotToggle"
+            class="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-circle"
+            style="width: 60px; height: 60px; z-index: 9999"
+        >
+            💬
+        </button>
+
+        <!-- Chatbot Box -->
+        <div id="chatbotBox" class="position-fixed" style="z-index: 9998">
+            <div class="card shadow" style="width: 300px">
+                <div
+                    class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+                >
+                    <span>Chatbot</span>
+                    <button
+                        class="btn-close btn-close-white btn-sm"
+                        onclick="toggleChatbot()"
+                    ></button>
+                </div>
+                <div
+                    class="card-body"
+                    style="height: 300px; overflow-y: auto"
+                    id="chatbox"
+                >
+                    <div class="text-muted small">
+                        Bot: Hello! How can I help you?
+                    </div>
+                </div>
+                <div class="card-footer p-2">
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="userInput"
+                            placeholder="Type a message..."
+                            onkeydown="if(event.key === 'Enter') sendMessage()"
+                        />
+                        <button class="btn btn-primary" onclick="sendMessage()">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Chatbot Logic -->
+        <script>
+            const chatbotBox = document.getElementById("chatbotBox");
+            const toggleBtn = document.getElementById("chatbotToggle");
+
+            function toggleChatbot() {
+                const isVisible = chatbotBox.style.display === "block";
+                chatbotBox.style.display = isVisible ? "none" : "block";
+            }
+
+            toggleBtn.addEventListener("click", toggleChatbot);
+
+            function sendMessage() {
+                const input = document.getElementById("userInput");
+                const message = input.value.trim();
+                if (!message) return;
+
+                const chatbox = document.getElementById("chatbox");
+
+                const userMsg = document.createElement("div");
+                userMsg.className = "text-end text-primary small mb-1";
+                userMsg.innerText = `You: ${message}`;
+                chatbox.appendChild(userMsg);
+
+                const botReply = document.createElement("div");
+                botReply.className = "text-muted small mb-1";
+                botReply.innerText = `Bot: You said "${message}"`;
+                chatbox.appendChild(botReply);
+
+                input.value = "";
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        </script>
+    </body>
+</html>

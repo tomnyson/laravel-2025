@@ -3,8 +3,17 @@
 @section('content')
     <!-- Start Cart  -->
     <div class="cart-box-main">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="container">
-            <div class="row new-account-login">
+            {{-- <div class="row new-account-login">
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <div class="title-left">
                         <h3>Account Login</h3>
@@ -53,52 +62,47 @@
                         <button type="submit" class="btn hvr-hover">Register</button>
                     </form>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <div class="checkout-address">
                         <div class="title-left">
                             <h3>Billing address</h3>
                         </div>
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation" novalidate method="post" action="{{ route('cart.checkout') }}">
+                            @csrf
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="firstName">First name *</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <div class="col-md-12 mb-3">
+                                    <label for="firstName">Full name *</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="" name="name"
+                                        value="" required>
                                     <div class="invalid-feedback"> Valid first name is required. </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="lastName">Last name *</label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid last name is required. </div>
-                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="username">Username *</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="username" placeholder="" required>
-                                    <div class="invalid-feedback" style="width: 100%;"> Your username is required.
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="firstName">Phone *</label>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="" value=""
+                                        required>
+                                    <div class="invalid-feedback"> Valid phone is required. </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email Address *</label>
-                                <input type="email" class="form-control" id="email" placeholder="">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="">
                                 <div class="invalid-feedback"> Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="address">Address *</label>
-                                <input type="text" class="form-control" id="address" placeholder="" required>
-                                <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                <label for="email">Note *</label>
+                                <input type="text" class="form-control" id="email" name="note" placeholder="">
+                                <div class="invalid-feedback"> Please enter note.
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="address2">Address 2 *</label>
-                                <input type="text" class="form-control" id="address2" placeholder="">
-                            </div>
+
                             <div class="row">
-                                <div class="col-md-5 mb-3">
-                                    <label for="country">Country *</label>
+                                <div class="col-md-4s mb-3">
+                                    <label for="country">Province *</label>
                                     <select class="wide w-100" id="country">
                                         <option value="Choose..." data-display="Select">Choose...</option>
 
@@ -106,7 +110,7 @@
                                     <div class="invalid-feedback"> Please select a valid country. </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="state">State *</label>
+                                    <label for="state">ward *</label>
                                     <select class="wide w-100" id="state">
                                         <option data-display="Select">Choose...</option>
                                         {{-- <option>California</option> --}}
@@ -117,7 +121,7 @@
                                 </div>
 
                                 <div class="col-md-4 mb-3">
-                                    <label for="ward">Ward *</label>
+                                    <label for="ward">village *</label>
                                     <select class="wide w-100" id="ward">
                                         <option data-display="Select">Choose...</option>
                                         {{-- <option>California</option> --}}
@@ -126,12 +130,9 @@
                                     </select>
                                     <div class="invalid-feedback"> Please provide a valid ward. </div>
                                 </div>
-
-
-                                <div class="col-md-3 mb-3">
-                                    <label for="zip">Zip *</label>
-                                    <input type="text" class="form-control" id="zip" placeholder="" required>
-                                    <div class="invalid-feedback"> Zip code required. </div>
+                                <div class="col-md-12   ">
+                                    <label for="address2">Street *</label>
+                                    <input type="text" name="address" class="form-control" id="address2" placeholder="">
                                 </div>
                             </div>
                             <hr class="mb-4">
@@ -165,7 +166,7 @@
                                 </div>
                             </div>
                             <hr class="mb-1">
-                        </form>
+
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-6 mb-3">
@@ -268,12 +269,12 @@
                                 <hr>
                             </div>
                         </div>
-                        <div class="col-12 d-flex shopping-box"> <a href="checkout.html" class="ml-auto btn hvr-hover">Place
-                                Order</a> </div>
+                        <button type="submit" class="ml-auto btn hvr-hover">Place
+                            Order</button>
                     </div>
                 </div>
             </div>
-
+            </form>
         </div>
     </div>
 
